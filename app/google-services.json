@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "979518112723",
+    "firebase_url": "https://promdate-b306a.firebaseio.com",
+    "project_id": "promdate-b306a",
+    "storage_bucket": "promdate-b306a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979518112723:android:8b67aad75242a768",
+        "android_client_info": {
+          "package_name": "com.example.alonkatz.promdate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979518112723-bh6r1t50bnha8r988ol5464acrre6bn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeYrnHDQPpJo8T9dz6pVOdqopQ3tbx22c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
