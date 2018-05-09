@@ -9,14 +9,13 @@ import java.util.Date;
 public class Message {
     private String messageText;
     private String toID;
-    private String fromID;
     private long messageTime;
 
 
-    public Message(String messageText, String toID, String fromID){
+    public Message(String messageText, String toID){
         this.messageText = messageText;
         this.toID = toID;
-        this.fromID = fromID;
+
 
         messageTime = new Date().getTime();
     }
@@ -32,9 +31,6 @@ public class Message {
         return toID;
     }
 
-    public String getFromID() {
-        return fromID;
-    }
 
     public long getMessageTime() {
         return messageTime;
