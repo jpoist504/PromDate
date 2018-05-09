@@ -20,7 +20,7 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference myRef = database.getReference("message123");
 
         myRef.setValue("Hello, World!");
     }

@@ -23,7 +23,8 @@ public class MessageView extends AppCompatActivity {
         setContentView(R.layout.message_table_view);
 
 
-        //if(FirebaseAuth.getInstance().getCurrentUser() == null)
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+        }
     }
 
 
