@@ -6,7 +6,10 @@ import android.os.Bundle;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-//hi this is ben
+/**
+ * @author Alon
+ * This class represents the log in page that users use to log into their accounts for our app
+ */
 public class LoginPage extends AppCompatActivity {
 
 
