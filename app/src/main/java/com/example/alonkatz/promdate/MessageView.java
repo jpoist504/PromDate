@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.text.format.DateFormat;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -94,13 +96,10 @@ public class MessageView extends AppCompatActivity {
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_REQUEST_CODE);
         }
 
-        else{
-            Snackbar.make(message_view,"Welcome " + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
+        else {
+            Snackbar.make(message_view, "Welcome " + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
+            displayMessage();
         }
-
-
-        //Then pull the data to show the messages
-        displayMessage();
     }
 
 
@@ -110,9 +109,21 @@ public class MessageView extends AppCompatActivity {
         adapter = new FirebaseListAdapter<Message>(this, Message.class, R.layout.message_list_view, FirebaseDatabase.getInstance().getReference()) {
 
             protected void populateView(View v, Message model, int position){
+                TextView messageText;
+                TextView messageUser;
+                TextView messageTime;
+                messageText = (TextView)v.findViewById(R.id.message_text);
+                messageUser = (TextView)v.findViewById(R.id.message_user);
+                messageTime = (TextView)v.findViewById(R.id.message_time);
 
+                messageText.setText(model.getMessageText());
+                messageUser.setText(model.getToID());
+                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getMessageTime()));
             }
         };
+
+        messageList.setAdapter(adapter);
+
     }
 
 }
