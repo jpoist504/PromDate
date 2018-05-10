@@ -30,6 +30,7 @@ public class LoginPage extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message1243");
 
+
         myRef.setValue("Hello, srf!");
     }
 }
