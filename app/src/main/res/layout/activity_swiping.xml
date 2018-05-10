@@ -7,5 +7,12 @@
     tools:context=".SwipingActivity">
 
 
-
+    <Button
+        android:id="@+id/btnok"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:onClick="goBack"
+        android:text="Back"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="200dp" />
 </android.support.constraint.ConstraintLayout>
