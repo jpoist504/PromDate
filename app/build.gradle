@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.alonkatz.promdate"
-        minSdkVersion 22
+        minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -30,6 +30,7 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:15.0.0'
     compile 'com.android.support:design:27.1.1'
     compile 'com.firebaseui:firebase-ui:0.6.2'
+    compile 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

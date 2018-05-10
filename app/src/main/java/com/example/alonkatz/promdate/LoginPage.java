@@ -1,10 +1,14 @@
 package com.example.alonkatz.promdate;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jgabrielfreitas.core.BlurImageView;
+
 
 /**
  * @author Alon
@@ -12,16 +16,20 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class LoginPage extends AppCompatActivity {
 
-
+    BlurImageView ferrari;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        ferrari = (BlurImageView) findViewById(R.id.background);
+        ferrari.setBlur(2);
 
-        myRef.setValue("Hello, World!");
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message1243");
+
+        myRef.setValue("Hello, srf!");
     }
 }

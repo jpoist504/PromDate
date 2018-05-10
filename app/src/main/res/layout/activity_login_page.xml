@@ -2,63 +2,97 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/usernameTextField"
+    style="@style/Theme.AppCompat.Light.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginPage">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="279dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Sign in"
-        android:textSize="30sp"
+    <com.jgabrielfreitas.core.BlurImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha=".7"
+        android:background="@drawable/background1"
+
+
+        android:scaleType="fitXY"
+        android:src="@drawable/background2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/UserNameTextField"
-        android:layout_width="301dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="41dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="74dp"
+        android:id="@+id/passwordTextField"
+        android:layout_width="407dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="Username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="301dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="55dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="55dp"
-        android:ems="10"
+        android:hint="Password"
+        android:background="@drawable/rounded"
+        android:padding="20dp"
+        android:alpha=".7"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UserNameTextField" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="131dp"
-        android:layout_marginStart="52dp"
-        android:text="Log in"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+
+        android:layout_marginEnd="200dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="30dp"
+        android:alpha=".7"
+        android:background="@drawable/rounded3"
+        android:shadowColor="@color/cardview_dark_background"
+        android:text="Log In"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextField" />
+
+    <EditText
+        android:id="@+id/UserNameTextField"
+        android:layout_width="407dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="52dp"
+        android:alpha=".7"
+        android:background="@drawable/rounded"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textEmailAddress"
+        android:padding="20dp"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="483dp"
+        android:layout_height="119dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="167dp"
+        android:contentDescription="@string/app_name"
+        android:cropToPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/app_logo_text" />
+
+
 </android.support.constraint.ConstraintLayout>
