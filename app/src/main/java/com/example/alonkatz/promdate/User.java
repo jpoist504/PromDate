@@ -23,4 +23,20 @@ public class User  {
     //
     private ImageView pic;
 
+
+    public User(int id,String name,boolean male, Date dateOfBirth ,int ageRange, boolean sexualOrientation, String state, String city, String school, String district, String description ){
+        this.id=id;
+        this.name=name;
+        this.dateOfBirth=dateOfBirth;
+        this.ageRange=ageRange;
+        this.sexualOrientation=sexualOrientation;
+        this.state=state;
+        this.city=city;this.school=school;
+        this.district=district;
+        this.description=description;
+    }
+    public  User(int id){
+     this.id=id;
+    }
+
 }
