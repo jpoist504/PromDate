@@ -1,8 +1,10 @@
 package com.example.alonkatz.promdate;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 
 import com.google.firebase.database.DatabaseReference;
@@ -33,4 +35,14 @@ public class LoginPage extends AppCompatActivity {
 
         myRef.setValue("Hello, srf!");
     }
+
+    public void benButtonPressed(View view){
+        startActivity(new Intent(getApplicationContext(), SwipingActivity.class));
+    }
+
+    public void jpButtonPressed(View view){
+
+        startActivity(new Intent(getApplicationContext(), MessageView.class));
+    }
+
 }
