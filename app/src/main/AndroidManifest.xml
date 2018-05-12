@@ -16,11 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SwipingActivity"
-            android:parentActivityName=".LoginPage"
-
-            ></activity>
-
+        <activity
+            android:name=".SwipingActivity"
+            android:parentActivityName=".LoginPage" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
