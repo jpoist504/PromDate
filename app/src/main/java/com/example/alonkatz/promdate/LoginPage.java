@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,13 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jgabrielfreitas.core.BlurImageView;
 
 
@@ -39,11 +45,26 @@ public class LoginPage extends AppCompatActivity {
 
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message1243");
+        DatabaseReference myRef = database.getReference().child("benTestUsers");
 
 
-        myRef.setValue("Hello, srf!");
+        //myRef.setValue("Hello, srf!");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.i("Info", dataSnapshot.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
+
 
     public void benButtonPressed(View view){
         startActivity(new Intent(getApplicationContext(), SwipingActivity.class));
