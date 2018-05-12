@@ -45,16 +45,19 @@ public class LoginPage extends AppCompatActivity {
 
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("benTestUsers");
+
+        String userId = "" + 1;
+
+        DatabaseReference myRef = database.getReference().child("benTestUsers").child(userId).child("name");
 
 
-        //myRef.setValue("Hello, srf!");
+        //myRef.setValue("4");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Log.i("Info", dataSnapshot.toString());
+                Log.i("Info", dataSnapshot.getValue().toString());
             }
 
             @Override
