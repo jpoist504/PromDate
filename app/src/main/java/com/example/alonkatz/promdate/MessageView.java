@@ -34,96 +34,13 @@ import java.util.List;
  */
 public class MessageView extends AppCompatActivity {
 
-    private static int SIGN_IN_REQUEST_CODE = 1;
-    private FirebaseListAdapter<Message> adapter;
-    RelativeLayout message_view;
-    FloatingActionButton send_button;
-
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() == R.id.menu_sign_out){
-            AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Snackbar.make(message_view, "You have been signed out", Snackbar.LENGTH_SHORT).show();
-                    finish();
-                }
-            });
-
-        }
-        return true;
-    }
-
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    protected void onActivity(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == SIGN_IN_REQUEST_CODE) {
-            if (requestCode == RESULT_OK) {
-                Snackbar.make(message_view, "Succesfull sign in, Welcome", Snackbar.LENGTH_SHORT).show();
-                displayMessage();
-
-            } else {
-                Snackbar.make(message_view, "Something went wrong, please try again", Snackbar.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-
-    }
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.message_table_view);
-
-        message_view = findViewById(R.id.message_view);
-        send_button = (FloatingActionButton)(findViewById(R.id.fab));
-        send_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText input = (EditText)findViewById(R.id.input);
-                FirebaseDatabase.getInstance().getReference().push().setValue(new Message(input.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()));
-                input.setText("");
-            }
-        });
-
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){
-            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_REQUEST_CODE);
-        }
-
-        else {
-            Snackbar.make(message_view, "Welcome " + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
-            displayMessage();
-        }
-    }
-
-
-    private void displayMessage(){
-
-        ListView messageList = (ListView)(findViewById(R.id.list_of_messages));
-        adapter = new FirebaseListAdapter<Message>(this, Message.class, R.layout.message_list_view, FirebaseDatabase.getInstance().getReference()) {
-
-            protected void populateView(View v, Message model, int position){
-                TextView messageText;
-                TextView messageUser;
-                TextView messageTime;
-                messageText = (TextView)v.findViewById(R.id.message_text);
-                messageUser = (TextView)v.findViewById(R.id.message_user);
-                messageTime = (TextView)v.findViewById(R.id.message_time);
-
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getToID());
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getMessageTime()));
-            }
-        };
-
-        messageList.setAdapter(adapter);
+        setContentView(findViewById(R.id.list_of_messages));
 
     }
+
 
 }
