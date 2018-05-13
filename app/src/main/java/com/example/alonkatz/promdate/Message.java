@@ -31,6 +31,10 @@ public class Message {
         return toID;
     }
 
+    public String toString(){
+        return messageText;
+    }
+
 
     public long getMessageTime() {
         return messageTime;

@@ -78,7 +78,7 @@ public class LoginPage extends AppCompatActivity {
 
     public void jpButtonPressed(View view){
 
-        startActivity(new Intent(getApplicationContext(), MessageView.class));
+        startActivity(new Intent(getApplicationContext(), MessageListActivity.class));
     }
 
     public void hideSoftKeyboard() {

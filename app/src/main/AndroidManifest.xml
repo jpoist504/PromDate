@@ -20,6 +20,7 @@
             android:name=".SwipingActivity"
             android:parentActivityName=".LoginPage" />
         <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".MessageListActivity"></activity>
     </application>
 
 </manifest>
