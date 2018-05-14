@@ -25,13 +25,19 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    compile 'com.google.firebase:firebase-core:15.0.0'
-    compile 'com.google.firebase:firebase-database:15.0.0'
-    compile 'com.google.firebase:firebase-auth:15.0.0'
-    compile 'com.android.support:design:27.1.1'
-    compile 'com.firebaseui:firebase-ui:0.6.2'
-    compile 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
-    compile 'com.android.support:design:24.1.1'
+    implementation 'com.google.firebase:firebase-core:15.0.0'
+    implementation 'com.google.firebase:firebase-database:15.0.0'
+    implementation 'com.google.firebase:firebase-auth:15.0.0'
+
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.firebaseui:firebase-ui:0.6.2'
+    implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
+    implementation 'com.android.support:design:27.1.1'
+
+    //New for messaging
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    //implementation 'com.google.firebase:firebase-messaging:15.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
