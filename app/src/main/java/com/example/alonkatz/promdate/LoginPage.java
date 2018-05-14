@@ -50,26 +50,30 @@ public class LoginPage extends AppCompatActivity {
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        String userId = "" + 1;
+//        String userId = "" + 1;
+//
+//        DatabaseReference myRef = database.getReference().child("benTestUsers").child(userId).child("name");
+//
+//
+//        //myRef.setValue("4");
+//
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                Log.i("Info", dataSnapshot.getValue().toString());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
-        DatabaseReference myRef = database.getReference().child("benTestUsers").child(userId).child("name");
+    }
 
-
-        //myRef.setValue("4");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Log.i("Info", dataSnapshot.getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+    public void registerPressed(View view){
+        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
     }
 
 
