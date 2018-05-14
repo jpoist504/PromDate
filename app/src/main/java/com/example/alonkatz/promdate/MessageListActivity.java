@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +39,8 @@ public class MessageListActivity extends AppCompatActivity{
 
     FirebaseListAdapter adapter;
 
+    Message newMessage;
+
 
 
     @Override
@@ -48,37 +51,56 @@ public class MessageListActivity extends AppCompatActivity{
         //header.setText(otherUserID);
 
         // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
+
+
+        myRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                System.out.println(map);
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                newMessage = dataSnapshot.getValue(Message.class);
+                System.out.println("Author: " + newMessage.getFromID());
+                System.out.println("Message: " + newMessage.getMessageText());
+                System.out.println("Previous Post ID: " + prevChildKey);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                //Log.w(TAG, "Failed to read value.", error.toException());
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
         //Set up the Listview
-//        ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
-//        adapter = new FirebaseListAdapter(this, Message.class, R.layout.list_item, FirebaseDatabase.getInstance().getReference()) {
-//            @Override
-//            protected void populateView(View v, Object model, int position) {
-//                TextView messageText, messageFromID;
-//
-//                messageText = (TextView)findViewById(R.id.message_text);
-//                messageFromID = (TextView)findViewById(R.id.message_from_user);
-//
-//
-//            }
-//        };
-//
-//        listOfMessages.setAdapter(adapter);
+        ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
+        adapter = new FirebaseListAdapter<Message>(this, Message.class, R.layout.list_item, myRef) {
+            @Override
+            protected void populateView(View v, Message model, int position) {
+                TextView messageText, messageFromID;
+
+                messageText = (TextView)v.findViewById(R.id.message_text);
+                messageFromID = (TextView)v.findViewById(R.id.message_from_user);
+
+
+
+                messageText.setText(newMessage.getMessageText());
+                messageFromID.setText(newMessage.getFromID());
+
+            }
+        };
+
+        listOfMessages.setAdapter(adapter);
     }
 
     public void sendButtonPressed(View view){

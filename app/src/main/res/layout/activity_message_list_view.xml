@@ -29,13 +29,13 @@
 
         />
 
-    <!--<ListView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_above="@id/message_text_input"-->
-        <!--android:id="@+id/list_of_messages"-->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/message_text_input"
+        android:id="@+id/list_of_messages"
 
-        <!--&gt;-->
-    <!--</ListView>-->
+        >
+    </ListView>
 
 </RelativeLayout>
