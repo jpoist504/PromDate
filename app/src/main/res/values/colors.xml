@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="whiteColor">#78ffffff</color>
+    <color name="darkWhite">#dadada</color>
     <color name="transparentColor">#00ffffff</color>
     <color name="darkTransparentColor">#1f000000</color>
+    white_button.xml
+
 </resources>
