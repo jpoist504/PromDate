@@ -9,12 +9,14 @@ import java.util.Date;
 public class Message {
     private String messageText;
     private String toID;
+    private String fromID;
 
 
 
-    public Message(String messageText, String toID){
+    public Message(String messageText, String toID, String fromID){
         this.messageText = messageText;
         this.toID = toID;
+        this.fromID = fromID;
 
     }
 
@@ -28,6 +30,8 @@ public class Message {
     public String getToID() {
         return toID;
     }
+
+    public String getFromID(){return fromID;}
 
     public String toString(){
         return messageText;
