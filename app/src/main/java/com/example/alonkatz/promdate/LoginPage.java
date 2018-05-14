@@ -1,9 +1,13 @@
 package com.example.alonkatz.promdate;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +35,13 @@ public class LoginPage extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("message1243");
 
 
+
+
         myRef.setValue("Hello, srf!");
+    }
+
+    public void clickFunction(View view){
+        Toast.makeText(LoginPage.this, "hello", Toast.LENGTH_SHORT).show();
+        //startActivity(new Intent(getApplicationContext(), SwipingActivity.class));
     }
 }
