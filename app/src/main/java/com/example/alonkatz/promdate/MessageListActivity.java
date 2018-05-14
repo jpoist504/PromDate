@@ -54,12 +54,11 @@ public class MessageListActivity extends AppCompatActivity{
 
 
         myRef.addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 newMessage = dataSnapshot.getValue(Message.class);
-                System.out.println("Author: " + newMessage.getFromID());
-                System.out.println("Message: " + newMessage.getMessageText());
-                System.out.println("Previous Post ID: " + prevChildKey);
+                System.out.println("child added");
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -82,6 +81,8 @@ public class MessageListActivity extends AppCompatActivity{
             }
         });
 
+
+
         //Set up the Listview
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
         adapter = new FirebaseListAdapter<Message>(this, Message.class, R.layout.list_item, myRef) {
@@ -92,11 +93,13 @@ public class MessageListActivity extends AppCompatActivity{
                 messageText = (TextView)v.findViewById(R.id.message_text);
                 messageFromID = (TextView)v.findViewById(R.id.message_from_user);
 
-
-
-                messageText.setText(newMessage.getMessageText());
-                messageFromID.setText(newMessage.getFromID());
-
+                if(newMessage != null) {
+                    if (messageText.getText() == "")
+                        messageText.setText(newMessage.getMessageText());
+                    if (messageFromID.getText() == "")
+                        messageFromID.setText(newMessage.getFromID());
+                }
+                newMessage = null;
             }
         };
 
@@ -127,5 +130,11 @@ public class MessageListActivity extends AppCompatActivity{
 
         e.setText("");
     }
+
+    public void updateMessage(TextView messageText, TextView messageFromID, Message newMessage){
+        messageText.setText(newMessage.getMessageText());
+        messageFromID.setText(newMessage.getFromID());
+    }
+
 
 }
