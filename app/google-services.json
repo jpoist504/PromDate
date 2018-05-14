@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "979518112723-88g4p0nt954bmttq6955917s6j6oqutt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alonkatz.promdate",
+            "certificate_hash": "89696cfb2718705c9181fdc25a401a89d152142a"
+          }
+        },
+        {
           "client_id": "979518112723-e8sbprl61nq8dneni0mn55o5jtk8bhmp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
