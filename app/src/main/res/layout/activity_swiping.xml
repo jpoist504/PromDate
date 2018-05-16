@@ -13,8 +13,8 @@
         android:layout_height="50dp"
         android:onClick="goBack"
         android:text="Back"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="200dp" />
+        tools:layout_editor_absoluteX="257dp"
+        tools:layout_editor_absoluteY="70dp" />
 
     <Button
         android:id="@+id/jp_button"
@@ -23,4 +23,43 @@
         android:text="jp"
         android:onClick="jpButtonPressed"
         />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:onClick="swipedRight"
+        android:text="Right"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="448dp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:onClick="swipedLeft"
+        android:text="Left"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="446dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="460dp" />
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="94dp"
+        android:layout_height="32dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="88dp" />
+
 </android.support.constraint.ConstraintLayout>
