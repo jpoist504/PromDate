@@ -22,8 +22,13 @@ public class SwipingActivity extends AppCompatActivity {
 //                finish();
 //            }
 //        });
+
+
     }
 
+    public void jpButtonPressed(View view){
+        startActivity(new Intent(getApplicationContext(), MessageListActivity.class));
+    }
 
     public void goBack(View view){
        finish();
