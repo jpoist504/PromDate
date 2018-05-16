@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterValues">
 
     <RelativeLayout
-        android:id="@+id/registerBackdrop"
+        android:id="@+id/registerValuesBackdrop"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <com.jgabrielfreitas.core.BlurImageView
             android:id="@+id/background"
@@ -39,6 +39,61 @@
             android:focusable="true"
             android:focusableInTouchMode="true" />
 
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="407dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="282dp"
+            android:alpha=".7"
+            android:background="@drawable/rounded"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textEmailAddress"
+            android:padding="20dp"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="407dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:alpha=".7"
+            android:background="@drawable/rounded"
+            android:ems="10"
+            android:focusable="auto"
+            android:hint="Last Name"
+            android:imeOptions="actionDone"
+            android:inputType="textEmailAddress"
+            android:padding="20dp"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/birthDate"
+            android:layout_width="407dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="287dp"
+            android:alpha=".65"
+            android:background="@drawable/rounded"
+            android:ems="10"
+            android:padding="20dp"
+            android:text="Birth Date"
+            android:textAlignment="viewStart"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
 
         <Button
             android:id="@+id/signUpButton"
@@ -57,63 +112,10 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:typeface="normal"
-            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createPasswordTextField" />
 
-        <EditText
-            android:id="@+id/createEmailTextField"
-            android:layout_width="407dp"
-            android:layout_height="60dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="338dp"
-            android:alpha=".7"
-            android:background="@drawable/rounded"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="20dp"
-            android:textAlignment="viewStart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-        <EditText
-            android:id="@+id/createPasswordTextField"
-            android:layout_width="407dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="317dp"
-            android:alpha=".7"
-            android:background="@drawable/rounded"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createEmailTextField" />
-
-        <EditText
-            android:id="@+id/confirmPasswordTextField"
-            android:layout_width="407dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="210dp"
-            android:alpha=".7"
-            android:background="@drawable/rounded"
-            android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createEmailTextField"
-            android:imeOptions="actionDone"/>
 
         <ImageView
             android:id="@+id/imageView2"
@@ -121,7 +123,7 @@
             android:layout_height="119dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="131dp"
             android:contentDescription="@string/app_name"
             android:cropToPadding="true"
             android:scaleType="fitCenter"
@@ -132,7 +134,7 @@
             app:srcCompat="@drawable/app_logo_text" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/backButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentStart="true"
@@ -144,8 +146,32 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/white_button" />
 
+        <ToggleButton
+            android:id="@+id/femaleToggle"
+            android:layout_width="167dp"
+            android:layout_height="61dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/maleToggle"
+            android:layout_marginEnd="77dp"
+            android:checked="false"
+            android:text="ToggleButton"
+            android:textOff="Female"
+            android:textOn="Female" />
+
+        <ToggleButton
+            android:id="@+id/maleToggle"
+            android:layout_width="167dp"
+            android:layout_height="61dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+
+            android:layout_marginBottom="182dp"
+            android:layout_marginStart="77dp"
+            android:checked="false"
+            android:text="ToggleButton"
+            android:textOff="Male"
+            android:textOn="Male" />
 
 
     </RelativeLayout>
-
 </android.support.constraint.ConstraintLayout>
