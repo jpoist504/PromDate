@@ -37,6 +37,7 @@ dependencies {
     //New for messaging
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.bigkoo:svprogresshud:1.0.6'
     //implementation 'com.google.firebase:firebase-messaging:15.0.0'
 }
 

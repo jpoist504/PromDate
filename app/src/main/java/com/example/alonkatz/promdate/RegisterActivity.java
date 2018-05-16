@@ -14,15 +14,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    SVProgressHUD loadingGraphic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         setupUI(findViewById(R.id.registerBackdrop));
         mAuth = FirebaseAuth.getInstance();
+
+        loadingGraphic = new SVProgressHUD(this);
     }
 
     public void hideSoftKeyboard() {
@@ -61,42 +70,39 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+
+
     public void registerUser(View view){
-        String email = ((EditText)findViewById(R.id.createEmailTextField)).getText().toString();
+        //loadingGraphic.show();
+        final String email = ((EditText)findViewById(R.id.createEmailTextField)).getText().toString();
         String password = ((EditText)findViewById(R.id.createPasswordTextField)).getText().toString();
         String confirmPassword = ((EditText)findViewById(R.id.confirmPasswordTextField)).getText().toString();
 
-        if(email.equals("")||password.equals("")||confirmPassword.equals(""))
+        if(email.equals("")||password.equals("")||confirmPassword.equals("")) {
             Toast.makeText(this, "Please fill all the boxes", Toast.LENGTH_SHORT).show();
-        else {
-            if(password.equals(confirmPassword)){
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("Email Creation", "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    startActivity(new Intent(getApplicationContext(), SwipingActivity.class));
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("Email Creation", "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                    //updateUI(null);
-                                }
-
-                                // ...
-                            }
-                        });
-            }
+        } else if(!password.equals(confirmPassword)){
+            Toast.makeText(this, "Passwords do not math!", Toast.LENGTH_LONG).show();
+        } else{
+            registerUserValues(email, password);
         }
+    }
+
+    public void registerUserValues(String email, String password){
+
+
+        Intent registerValues = new Intent(getApplicationContext(), RegisterValues.class);
+        registerValues.putExtra("EMAIL", email);
+        registerValues.putExtra("PASSWORD", password);
+
+
+      //  loadingGraphic.dismiss();
+       startActivity(registerValues);
     }
 
 
 
     public void goBack(View view){
+
         finish();
     }
 
