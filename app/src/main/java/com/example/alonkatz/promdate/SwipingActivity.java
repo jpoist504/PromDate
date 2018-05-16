@@ -17,9 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SwipingActivity extends AppCompatActivity {
     TextView textElement;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    int userId =  1;
+    int userId =  0;
     String userName;
-    DatabaseReference myRef = database.getReference().child("benTestUsers").child(""+userId).child("name");
+    DatabaseReference usersRef = database.getReference().child("benTestUsers").child(""+userId).child("name");
+    DatabaseReference likedUsersRef = database.getReference().child("LikedUsers");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +28,9 @@ public class SwipingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_swiping);
 
         textElement = (TextView) findViewById(R.id.name);
-        myRef = database.getReference().child("benTestUsers").child(""+userId).child("name");
+        textElement.setText("");
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userName = dataSnapshot.getValue(String.class);
-                //do what you want with the email
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 //        Button btn=(Button) findViewById(R.id.btnok);
 //        btn.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +56,7 @@ public class SwipingActivity extends AppCompatActivity {
 
     }
     public void swipedRight(View view){
-
+    likedUsersRef.push().setValue(userId+"");
         showNextUser();
 
            }
@@ -76,9 +66,9 @@ public class SwipingActivity extends AppCompatActivity {
     public void showNextUser(){
 
         userId++;
-        myRef = database.getReference().child("benTestUsers").child(""+userId).child("name");
+        usersRef = database.getReference().child("benTestUsers").child(""+userId).child("name");
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
               userName = dataSnapshot.getValue(String.class);
