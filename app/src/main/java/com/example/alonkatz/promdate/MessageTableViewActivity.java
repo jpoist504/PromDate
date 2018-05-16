@@ -1,5 +1,6 @@
 package com.example.alonkatz.promdate;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +22,8 @@ import org.w3c.dom.Text;
 public class MessageTableViewActivity extends AppCompatActivity {
 
     ListView listView;
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("user").child(currentUser.getUid()).child("matched_users").child("name");
+    FirebaseUser currentUser;
+    DatabaseReference myRef;
     FirebaseListAdapter adapter;
     TextView userName;
     TextView recentMessage;
@@ -31,6 +32,14 @@ public class MessageTableViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_table_view);
 
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        }
+        else{
+            startActivity(new Intent(getApplicationContext(), LoginPage.class));
+        }
+
+        myRef = FirebaseDatabase.getInstance().getReference().child("user").child(currentUser.getUid()).child("matched_users").child("name");
 
         //Set up the Listview
         ListView listOfMessages = (ListView)findViewById(R.id.message_table);
@@ -46,7 +55,7 @@ public class MessageTableViewActivity extends AppCompatActivity {
             }
         };
 
-        listOfMessages.setAdapter(adapter);
+        listView.setAdapter(adapter);
     }
 
 
