@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -55,5 +58,31 @@ public class SwipingFragment extends Fragment {
         MatchedUser match = new MatchedUser(displayedUserName, displayedUserID);
         myRef.setValue(match);
     }
+    public void swipeRight(View view){
 
+        onMatch();
+        showNextUser();
+    }
+    public void swipeLeft(View view){
+       showNextUser();
+    }
+    public void showNextUser(){
+
+
+       myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listOfUsers = dataSnapshot.getValue(ArrayList.class);
+                //do what you want with the email
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        textElement.setText( userName);
+
+
+    }
 }
