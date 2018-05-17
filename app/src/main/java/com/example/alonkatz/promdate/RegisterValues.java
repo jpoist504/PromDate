@@ -168,7 +168,7 @@ public class RegisterValues extends AppCompatActivity {
         myRef.child("isMale").setValue(isMale);
 
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-        //startActivity(new Intent(getApplicationContext(), LoginPage.class));
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
     public void setUpDatePicker() {
