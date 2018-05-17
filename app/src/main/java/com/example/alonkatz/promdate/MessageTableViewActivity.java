@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import org.w3c.dom.Text;
 
 public class MessageTableViewActivity extends AppCompatActivity {
 
-    ListView listView;
+    ListView tableOfMessages;
     FirebaseUser currentUser;
     DatabaseReference myRef;
     FirebaseListAdapter adapter;
@@ -39,23 +40,35 @@ public class MessageTableViewActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), LoginPage.class));
         }
 
-        myRef = FirebaseDatabase.getInstance().getReference().child("user").child(currentUser.getUid()).child("matched_users").child("name");
 
+        myRef = FirebaseDatabase.getInstance().getReference().child("user").child(currentUser.getUid()).child("matched_users").child("m5ukzBNk2qQhrn6OBO424qkeeXX2").child("name");
+
+        System.out.println("PLACE 1");
         //Set up the Listview
-        ListView listOfMessages = (ListView)findViewById(R.id.message_table);
-        adapter = new FirebaseListAdapter<String>(this, String.class, R.layout.list_item, myRef) {
+        tableOfMessages = (ListView)findViewById(R.id.message_table);
+        adapter = new FirebaseListAdapter<String>(this, String.class, R.layout.table_item, myRef) {
             @Override
             protected void populateView(View v, String model, int position) {
 
                 userName = (TextView)v.findViewById(R.id.user_name);
                 recentMessage = (TextView)v.findViewById(R.id.recent_message);
 
-                userName.setText(model);
+                System.out.println("PLACE 2");
+                userName.setText("hello");
 
             }
         };
 
-        listView.setAdapter(adapter);
+        tableOfMessages.setAdapter(adapter);
+
+        tableOfMessages.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MessageTableViewActivity.this, MessageListActivity.class);
+                intent.putExtra("OtherUserID", tableOfMessages.getItemIdAtPosition(position));
+                startActivity(intent);
+            }
+        });
     }
 
 
