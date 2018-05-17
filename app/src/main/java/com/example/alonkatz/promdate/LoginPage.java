@@ -165,6 +165,7 @@ public class LoginPage extends AppCompatActivity {
                                 ((EditText)findViewById(R.id.emailTextField)).setText("");
                                 ((EditText)findViewById(R.id.passwordTextField)).setText("");
                                 startActivity(new Intent(getApplicationContext(), SwipingActivity.class));
+                                startActivity(new Intent(getApplicationContext(), MessageTableViewActivity.class));
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("Failed", "signInWithEmail:failure", task.getException());
