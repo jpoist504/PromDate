@@ -21,7 +21,11 @@
             android:parentActivityName=".LoginPage" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MessageListActivity" />
-        <activity android:name=".RegisterValues"></activity>
+        <activity android:name=".RegisterValues" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

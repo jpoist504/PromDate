@@ -47,16 +47,24 @@ public class LoginPage extends AppCompatActivity {
     SVProgressHUD loadingGraphic;
     private FirebaseAuth mAuth;
 
+    //onResume()
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+
+
 
         setupUI(findViewById(R.id.backdrop));
         mAuth = FirebaseAuth.getInstance();
 
         loadingGraphic = new SVProgressHUD(this);
 
+
+        if(mAuth.getCurrentUser()!= null){
+
+        }
 
         ferrari = (BlurImageView) findViewById(R.id.background);
         ferrari.setBlur(2);
@@ -66,7 +74,7 @@ public class LoginPage extends AppCompatActivity {
 
 //        String userId = "" + 1;
 //
-//        DatabaseReference myRef = database.getReference().child("benTestUsers").child(userId).child("name");
+//        DatabaseReference myRef = database.getReference().child("users").child(userId).child("name");
 //
 //
 //        //myRef.setValue("4");
@@ -156,6 +164,7 @@ public class LoginPage extends AppCompatActivity {
                                 loadingGraphic.dismiss();
                                 ((EditText)findViewById(R.id.emailTextField)).setText("");
                                 ((EditText)findViewById(R.id.passwordTextField)).setText("");
+                                startActivity(new Intent(getApplicationContext(), SwipingActivity.class));
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("Failed", "signInWithEmail:failure", task.getException());

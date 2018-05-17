@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SwipingActivity">
+    android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/btnok"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:onClick="goBack"
-        android:text="Back"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="200dp" />
-
-    <Button
-        android:id="@+id/jp_button"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="jp"
-        android:onClick="jpButtonPressed"
-        />
-</android.support.constraint.ConstraintLayout>
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:text="Tab1"
+        android:layout_marginTop="40dp"
+        android:id="@+id/textTab1"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnTEST"
+        android:text="TESTBTN 1"/>
+
+</RelativeLayout>
