@@ -23,7 +23,15 @@ public class SwipingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_swiping, container, false);
+        View view = inflater.inflate(R.layout.fragment_swiping, container, false);
+
+
+
+        return view;
+    }
+
+    public void onMatch(){
+
     }
 
 }

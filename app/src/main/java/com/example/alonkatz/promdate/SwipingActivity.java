@@ -14,6 +14,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.jgabrielfreitas.core.BlurImageView;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class SwipingActivity extends AppCompatActivity {
     TextView textElement;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -21,6 +23,7 @@ public class SwipingActivity extends AppCompatActivity {
     String userName;
     DatabaseReference usersRef = database.getReference().child("benTestUsers").child(""+userId).child("name");
     DatabaseReference likedUsersRef = database.getReference().child("LikedUsers");
+    ArrayList<User> listOfUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class SwipingActivity extends AppCompatActivity {
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-              userName = dataSnapshot.getValue(String.class);
+              listOfUsers = dataSnapshot.getValue(ArrayList.class);
                 //do what you want with the email
             }
 

@@ -8,9 +8,11 @@ import android.widget.ImageView;
  * Represents a user
  */
 public class User  {
-    private int id;
-    private String name;
-    private boolean male;
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private boolean isMale;
     private Date dateOfBirth;
     private boolean isHeterosexual;
     private String state;
@@ -22,10 +24,20 @@ public class User  {
     //
     private ImageView pic;
 
+    //Reflects what a user looks like stored in firebase
+    public User(String id, String firstName, String lastName, String email, boolean isMale){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.isMale = isMale;
+    }
 
-    public User(int id,String name,boolean male, Date dateOfBirth ,int ageRange, boolean isHeterosexual, String state, String city, String school, String district, String description ){
+
+    public User(String id,String firstName, String lastName,boolean male, Date dateOfBirth ,int ageRange, boolean isHeterosexual, String state, String city, String school, String district, String description ){
         this.id=id;
-        this.name=name;
+        this.firstName= firstName;
+        this.lastName = lastName;
         this.dateOfBirth=dateOfBirth;
         this.isHeterosexual=isHeterosexual;
         this.state=state;
@@ -35,6 +47,16 @@ public class User  {
         this.description=description;
     }
 
+    public String getId(){return id;}
+    public String getFirstName(){return firstName;}
+    public String getLastName(){return lastName;}
+    public String getEmail(){return email;}
+
+    /**
+     *
+     * @return returns true if male false if female
+     */
+    public boolean getGender(){return isMale;}
 
 
 }
