@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mMainNav.getSelectedItemId();
         currentFrag = 1;
        // Log.i("ID SHIT", mMainNav.getSelectedItemId() + " " + R.id.nav_main);
-        setFragment(profileFragment);
+        setFragment(swipingFragment);
 
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
