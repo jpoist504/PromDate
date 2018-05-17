@@ -45,9 +45,30 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        
+        android:textAlignment="center"
         >
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:id="@+id/toolbar_title"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            />
+
     </android.support.v7.widget.Toolbar>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="backButtonPressed"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+
+        />
 
 </RelativeLayout>

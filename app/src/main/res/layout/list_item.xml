@@ -11,6 +11,7 @@
         android:layout_alignParentTop="true"
         android:id="@+id/message_from_user"
         android:textStyle="bold"
+        android:textSize="18dp"
         />
 
     <TextView

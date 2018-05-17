@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 
 public class MessageListActivity extends AppCompatActivity{
 
@@ -57,8 +59,12 @@ public class MessageListActivity extends AppCompatActivity{
 
 
         //Set up toolbar title
-        title = (Toolbar)findViewById(R.id.toolbar_message_list);
-        title.setTitle(getIntent().getExtras().getString("UserName"));
+//        title = (Toolbar)findViewById(R.id.toolbar_message_list);
+//        title.setTitle(getIntent().getExtras().getString("UserName"));
+//        otherUserID = getIntent().getExtras().getString("UserID");
+
+        TextView title = (TextView)findViewById(R.id.toolbar_title);
+        title.setText(getIntent().getExtras().getString("UserName"));
         otherUserID = getIntent().getExtras().getString("UserID");
 
         myRef = database.getReference("users").child(userID).child("messages").child("fromID").child(otherUserID);
@@ -81,12 +87,16 @@ public class MessageListActivity extends AppCompatActivity{
         };
 
         listOfMessages.setAdapter(adapter);
+
+        listOfMessages.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        listOfMessages.setStackFromBottom(true);
     }
 
     public void sendButtonPressed(View view){
         sendMessage();
     }
 
+    public void backButtonPressed(View view){finish();}
 
     private void sendMessage(){
         EditText e = (EditText)findViewById(R.id.message_text_input);
