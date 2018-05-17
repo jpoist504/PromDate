@@ -61,7 +61,7 @@ public class LoginPage extends AppCompatActivity {
 
         loadingGraphic = new SVProgressHUD(this);
 
-
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
         if(mAuth.getCurrentUser()!= null){
 
         }
