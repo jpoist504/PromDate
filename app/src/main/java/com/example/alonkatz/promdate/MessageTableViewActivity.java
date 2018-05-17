@@ -23,6 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+/**
+ *
+ * @author Justin
+ * represents the view that contains the list of users a user cna message
+ *
+ */
 public class MessageTableViewActivity extends AppCompatActivity {
 
     ListView tableOfMessages;
