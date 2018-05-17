@@ -28,8 +28,7 @@ public class MessageListActivity extends AppCompatActivity{
 
     FirebaseUser user;
     String userID;
-    String otherUserID = "GK7wDBqKwyYC2Df6E2WVwyFW7vF2";
-    String otherUserName;
+    String otherUserID;
     Toolbar title;
 
 
@@ -54,29 +53,15 @@ public class MessageListActivity extends AppCompatActivity{
             startActivity(new Intent(getApplicationContext(), LoginPage.class));
         }
 
-        myRef = database.getReference("users").child(otherUserID).child("name");
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                otherUserName = value;
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-            }
-        });
-
-        myRef = database.getReference("users").child(userID).child("messages");
 
         //Set up toolbar title
         title = (Toolbar)findViewById(R.id.toolbar_message_list);
-        title.setTitle(otherUserName);
-        System.out.println(otherUserName);
+        title.setTitle(getIntent().getExtras().getString("UserName"));
+        otherUserID = getIntent().getExtras().getString("UserID");
+
+        myRef = database.getReference("users").child(userID).child("messages").child("fromID").child(otherUserID);
 
         //Set up the Listview
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
@@ -107,17 +92,18 @@ public class MessageListActivity extends AppCompatActivity{
         EditText e = (EditText)findViewById(R.id.message_text_input);
         String messageText = e.getText().toString();
 
-        Message message = new Message(messageText, otherUserID, user.getDisplayName());
+        Message message = new Message(messageText, otherUserID, getIntent().getExtras().get("ThisUserName").toString());
 
 
 
-        myRef = database.getReference("users").child(userID).child("messages");
+        myRef = database.getReference("users").child(userID).child("messages").child("fromID").child(otherUserID);
         DatabaseReference messageID = myRef.push();
         messageID.setValue(message);
 
-        myRef = database.getReference("users").child(otherUserID).child("messages");
+        myRef = database.getReference("users").child(otherUserID).child("messages").child("fromID").child(otherUserID);
         messageID = myRef.push();
         messageID.setValue(message);
+
 
         e.setText("");
     }
