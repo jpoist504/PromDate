@@ -7,12 +7,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SwipingFragment extends Fragment {
 
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    String currentUserID = currentUser.getUid();
+    DatabaseReference myRef;
+    ArrayList<User> allUsers = new ArrayList<User>();
+
+    //displayedUserName should hold the name of the user that is on the screen, not the logged in user.
+    String displayedUserName;
+    //displayedUserID should hold the userID of the user that is on the screen, not the logged in user.
+    String displayedUserID;
 
     public SwipingFragment() {
         // Required empty public constructor
@@ -27,11 +43,17 @@ public class SwipingFragment extends Fragment {
 
 
 
+
         return view;
     }
 
-    public void onMatch(){
 
+    //This is how you put a matchedUser into the database
+    public void onMatch(){
+        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("matched_users");
+        myRef.push();
+        MatchedUser match = new MatchedUser(displayedUserName, displayedUserID);
+        myRef.setValue(match);
     }
 
 }
