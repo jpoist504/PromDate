@@ -25,9 +25,13 @@ public class SwipingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_swiping, container, false);
 
-        
+
 
         return view;
+    }
+
+    public void onMatch(){
+
     }
 
 }
