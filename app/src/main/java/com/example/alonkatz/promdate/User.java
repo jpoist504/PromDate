@@ -13,38 +13,34 @@ public class User  {
     private String lastName;
     private String email;
     private boolean isMale;
-    private Date dateOfBirth;
-    private boolean isHeterosexual;
-    private String state;
-    private String city;
-    private String school;
-    private String district;
-    private String description;
+    private String dateOfBirth;
+
     ArrayList<String> likedUsers;
     //
     private ImageView pic;
 
+    public User (){
+
+    }
+
     //Reflects what a user looks like stored in firebase
-    public User(String id, String firstName, String lastName, String email, boolean isMale){
+    public User(String id, String firstName, String lastName, String email, boolean isMale, String dateOfBirth){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.isMale = isMale;
+        this.dateOfBirth = dateOfBirth;
     }
 
 
-    public User(String id,String firstName, String lastName,boolean male, Date dateOfBirth ,int ageRange, boolean isHeterosexual, String state, String city, String school, String district, String description ){
+    public User(String id,String firstName, String lastName,boolean male, String dateOfBirth, String email){
         this.id=id;
         this.firstName= firstName;
         this.lastName = lastName;
+        this.email = email;
         this.dateOfBirth=dateOfBirth;
-        this.isHeterosexual=isHeterosexual;
-        this.state=state;
-        this.city=city;
-        this.school=school;
-        this.district=district;
-        this.description=description;
+
     }
 
     public String getId(){return id;}

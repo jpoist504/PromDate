@@ -36,6 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jgabrielfreitas.core.BlurImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author Alon
@@ -61,8 +64,28 @@ public class LoginPage extends AppCompatActivity {
 
         loadingGraphic = new SVProgressHUD(this);
 
-       
         if(mAuth.getCurrentUser()!= null){
+//            final List<String> userIdList = new ArrayList();
+//            FirebaseDatabase database = FirebaseDatabase.getInstance();
+//            DatabaseReference myRef = database.getReference().child("users");
+//            myRef.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    if(dataSnapshot==null)return;
+//                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+//                        userIdList.add(postSnapshot.getKey());
+//                    }
+//
+//                   // User user = dataSnapshot.getValue(User.class);
+//                    Log.i("User", "" + userIdList.toString());
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
 
@@ -70,7 +93,7 @@ public class LoginPage extends AppCompatActivity {
         ferrari.setBlur(2);
 
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
 
 //        String userId = "" + 1;
 //

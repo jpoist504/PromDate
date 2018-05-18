@@ -29,8 +29,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -161,11 +164,39 @@ public class RegisterValues extends AppCompatActivity {
 
     public void registerUserValues(FirebaseUser user) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("users").child(user.getUid());
-        myRef.child("firstName").setValue(firstName);
-        myRef.child("lastName").setValue(lastName);
-        myRef.child("email").setValue(email);
-        myRef.child("isMale").setValue(isMale);
+        final DatabaseReference myRef = database.getReference().child("users").child(user.getUid());
+        myRef.setValue(new User(user.getUid(), firstName, lastName, email, isMale, birthday));
+//        myRef.child("firstName").setValue(firstName);
+//        myRef.child("lastName").setValue(lastName);
+//        myRef.child("email").setValue(email);
+//        myRef.child("isMale").setValue(isMale);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.i("Info", dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                User user = dataSnapshot.getValue(User.class);
+                Log.i("User", user.getEmail());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
