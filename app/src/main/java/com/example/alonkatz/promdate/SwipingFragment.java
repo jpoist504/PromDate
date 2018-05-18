@@ -4,9 +4,12 @@ package com.example.alonkatz.promdate;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.EditText;
 import  android.widget.TextView;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SwipingFragment extends Fragment {
+public class SwipingFragment extends Fragment implements View.OnClickListener {
 
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     String currentUserID = currentUser.getUid();
@@ -47,56 +50,47 @@ public class SwipingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-    //displayedUserID="0MqovCsEe6OlKIxWZlRpXaCQA9g2";
+        //displayedUserID="0MqovCsEe6OlKIxWZlRpXaCQA9g2";
         // Inflate the layout for this fragment
-         view = inflater.inflate(R.layout.fragment_swiping, container, false);
-      //show first user
+        view = inflater.inflate(R.layout.fragment_swiping, container, false);
+        //show first user
 
-        displayedUserID="";
-        displayedUserName="";
+        ImageButton b = (ImageButton) view.findViewById(R.id.swipeRight);
+        b.setOnClickListener(this);
+
+        displayedUserID = "";
+        displayedUserName = "";
         return view;
     }
 
 
     //This is how you put a matchedUser into the database
-    public void onMatch(){
+    public void onMatch() {
         myRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("matched_users");
         myRef.push();
         MatchedUser match = new MatchedUser(displayedUserName, displayedUserID);
         myRef.setValue(match);
 
     }
-    public void swipeRight(View view){
 
-        onMatch();
-        showNextUser();
+    public void swipeRight() {
+        Log.i("Shitface", "Hello");
+        myRef = FirebaseDatabase.getInstance().getReference().child("users").child("matched_users").child("rubwoerub4398");
+
+        userName = (TextView) view.findViewById(R.id.userName);
+        userName.setText("Ben");
+
+
     }
-    public void swipeLeft(View view){
-       showNextUser();
-    }
-    public void showNextUser(){
-        //finds a new user id
-        displayedUserID="";
 
-        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(displayedUserID);
-       myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-             //   listOfUsers = dataSnapshot.getValue(ArrayList.class);
-                //do what you want with the email
-                User user = dataSnapshot.getValue(User.class);
-                displayedUserID=dataSnapshot.getValue(ArrayList.class).toString();
-                displayedUserName=user.getFirstName();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        userName = (EditText) view.findViewById(R.id.userName);
-        userName.setText( displayedUserName);
-
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.swipeRight:
+                swipeRight();
+                break;
+                default:
+                    break;
+        }
     }
 }
