@@ -13,8 +13,8 @@
         android:layout_height="50dp"
         android:onClick="goBack"
         android:text="Back"
-        tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="70dp" />
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="110dp" />
 
     <Button
         android:id="@+id/jp_button"

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class SwipingActivity extends AppCompatActivity {
     TextView textElement;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    int userId =  0;
+    int userId =  1;
     String userName;
     DatabaseReference usersRef = database.getReference().child("benTestUsers").child(""+userId).child("name");
     DatabaseReference likedUsersRef = database.getReference().child("LikedUsers");

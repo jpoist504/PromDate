@@ -15,6 +15,11 @@ public class MatchedUser {
         this.userID = userID;
     }
 
+    @Override
+    public String toString() {
+        return userID;
+    }
+
     public MatchedUser(){}
     public String getName(){return name;}
     public String getUserID(){return userID;}
