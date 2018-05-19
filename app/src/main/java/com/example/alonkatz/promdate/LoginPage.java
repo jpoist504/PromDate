@@ -92,6 +92,9 @@ public class LoginPage extends AppCompatActivity {
         ferrari = (BlurImageView) findViewById(R.id.background);
         ferrari.setBlur(2);
 
+
+
+
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 

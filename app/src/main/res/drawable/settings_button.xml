@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Button Disabled -->
+    <item
+        android:state_enabled="false">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+            <solid android:color="@color/transparentColor"/>
+            <stroke
+                android:width="2dip"
+                android:color="@color/darkTransparentColor" />
+        </shape>
+    </item>
+
+    <!-- Button Pressed / Feedback -->
+    <item
+        android:state_pressed="true"
+        android:state_enabled="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+            <solid android:color="@color/darkTransparentColor"/>
+            <stroke
+                android:width="2dip"
+                android:color="@color/darkTransparentColor" />
+        </shape>
+    </item>
+
+    <!-- Button Focused -->
+    <!-- Sometimes developers define Shapes in a separate drawable. The code is the same. Here's an example. -->
+    <item
+        android:state_focused="true"
+        android:state_enabled="true"
+        android:drawable="@drawable/rounded"> <!-- Refers to another drawable file with name "button_focused" -->
+    </item>
+
+    <!-- Button Enabled -->
+    <item
+        android:state_enabled="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+            <solid android:color="@color/transparentColor"/>
+            <stroke
+                android:width="2dip"
+                android:color="@color/darkTransparentColor" />
+        </shape>
+    </item>
+
+</selector>
+
+    <!--https://stackoverflow.com/questions/27759581/no-touch-feedback-after-changing-button-background-color-in-android-->
