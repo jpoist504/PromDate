@@ -72,9 +72,11 @@ public class LoginPage extends AppCompatActivity {
 //                @Override
 //                public void onDataChange(DataSnapshot dataSnapshot) {
 //                    if(dataSnapshot==null)return;
-//                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-//                        userIdList.add(postSnapshot.getKey());
-//                    }
+////                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+////                        userIdList.add(postSnapshot.getKey());
+//                            User user = postSnapshot.getValue(User.class);
+
+////                    }
 //
 //                   // User user = dataSnapshot.getValue(User.class);
 //                    Log.i("User", "" + userIdList.toString());
