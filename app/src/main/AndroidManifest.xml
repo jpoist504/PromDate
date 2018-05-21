@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginPage"
+        <activity
+            android:name=".LoginPage"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -20,30 +21,33 @@
         </activity>
         <activity
             android:name=".SwipingActivity"
+            android:configChanges="orientation"
             android:parentActivityName=".LoginPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessageListActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MessageListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterValues2"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterValues"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        android:label="@string/title_activity_main"
+        android:theme="@style/AppTheme"
         />
-        <activity android:name=".MessageTableViewActivity"
+        <activity
+            android:name=".MessageTableViewActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
-
+            android:screenOrientation="portrait" />
+        <activity android:name=".RegisterValues1"></activity>
     </application>
 
 </manifest>

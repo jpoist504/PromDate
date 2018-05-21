@@ -29,25 +29,25 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
+import java.util.Date;
 
-public class RegisterValues extends AppCompatActivity {
+public class RegisterValues2 extends AppCompatActivity {
 
     private String email;
     private String password;
     private String firstName;
     private String lastName;
     private String birthday;
+    private String location;
+    private String description;
 
     private TextView mDisplayDate;
+    private int age;
+    private boolean ageSelected;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private boolean isMale = false;
@@ -57,6 +57,7 @@ public class RegisterValues extends AppCompatActivity {
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_values);
 
@@ -69,10 +70,13 @@ public class RegisterValues extends AppCompatActivity {
 
         setToggleListeners();
         setUpDatePicker();
+        ageSelected = false;
 
         email = getIntent().getStringExtra("EMAIL");
         password = getIntent().getStringExtra("PASSWORD");
-        Log.i("email", email);
+        location = getIntent().getStringExtra("LOCATION");
+        description = getIntent().getStringExtra("DESCRIPTION");
+        Log.i("email", email + " " + password + " " + location + " " + description + " ");
 
 
     }
@@ -132,13 +136,15 @@ public class RegisterValues extends AppCompatActivity {
         lastName = ((EditText) findViewById(R.id.lastName)).getText().toString();
         birthday = ((TextView) findViewById(R.id.birthDate)).getText().toString();
 
-        if (firstName.equals("") || lastName.equals("") || birthday.equals("") || !genderSelected) {
+        if (firstName.equals("") || lastName.equals("") || birthday.equals("") || !genderSelected || !ageSelected) {
             Toast.makeText(this, "Please fill all the boxes", Toast.LENGTH_SHORT).show();
         } else {
+            Toast.makeText(this, "Here", Toast.LENGTH_SHORT).show();
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("Email Creation", "createUserWithEmail:success");
@@ -150,7 +156,7 @@ public class RegisterValues extends AppCompatActivity {
                                 //loadingGraphic.dismiss();
                                 // If sign in fails, display a message to the user.
                                 Log.w("Email Creation", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(RegisterValues.this, "Authentication failed.",
+                                Toast.makeText(RegisterValues2.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                                 //updateUI(null);
                             }
@@ -165,8 +171,11 @@ public class RegisterValues extends AppCompatActivity {
     public void registerUserValues(FirebaseUser user) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference().child("users").child(user.getUid());
-        myRef.setValue(new User(user.getUid(), firstName, lastName, email, isMale, birthday));
-//        myRef.child("firstName").setValue(firstName);
+        Log.i("email2", email + " " + password + " " + location + " " + description + " " + firstName);
+        myRef.setValue(new User(user.getUid(), firstName, lastName, email, isMale, birthday, description, location, age));
+
+
+        //        myRef.child("firstName").setValue(firstName);
 //        myRef.child("lastName").setValue(lastName);
 //        myRef.child("email").setValue(email);
 //        myRef.child("isMale").setValue(isMale);
@@ -214,7 +223,7 @@ public class RegisterValues extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        RegisterValues.this,
+                        RegisterValues2.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
                         year, month, day);
@@ -230,7 +239,32 @@ public class RegisterValues extends AppCompatActivity {
                 Log.d("The date", "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
 
                 String date = month + "/" + day + "/" + year;
-                mDisplayDate.setText(date);
+
+                Calendar c = Calendar.getInstance();
+                int currentYear = c.get(Calendar.YEAR);
+                int currentMonth = c.get(Calendar.MONTH);
+                int currentDay = c.get(Calendar.DAY_OF_MONTH);
+
+                age = currentYear - year;
+
+                if(currentMonth < month){
+                    age--;
+                } else if (currentMonth == month){
+                    if(currentDay < day){
+                        age--;
+                    }
+                }
+
+                if (age < 14){
+                    ageSelected = false;
+                    Toast.makeText(RegisterValues2.this, "You must be older than 14 years old", Toast.LENGTH_SHORT).show();
+                } else {
+                    mDisplayDate.setText(date);
+                    ageSelected = true;
+                }
+
+
+
             }
         };
 
@@ -243,10 +277,6 @@ public class RegisterValues extends AppCompatActivity {
                         Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(
                 this.getCurrentFocus().getWindowToken(), 0);
-        EditText lastname = (EditText) findViewById(R.id.lastName);
-        //Make a method for all textviews
-
-        lastname.clearFocus();
     }
 
     /**
