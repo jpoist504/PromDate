@@ -5,9 +5,10 @@
     <item
         android:state_enabled="false">
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+            <corners android:radius="30dp"></corners>
             <solid android:color="@color/transparentColor"/>
             <stroke
-                android:width="2dip"
+                android:width="1dip"
                 android:color="@color/darkTransparentColor" />
         </shape>
     </item>
@@ -18,8 +19,9 @@
         android:state_enabled="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
             <solid android:color="@color/darkTransparentColor"/>
+            <corners android:radius="30dp"></corners>
             <stroke
-                android:width="2dip"
+                android:width="1dip"
                 android:color="@color/darkTransparentColor" />
         </shape>
     </item>
@@ -37,8 +39,9 @@
         android:state_enabled="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
             <solid android:color="@color/transparentColor"/>
+            <corners android:radius="30dp"></corners>
             <stroke
-                android:width="2dip"
+                android:width="1dip"
                 android:color="@color/darkTransparentColor" />
         </shape>
     </item>
