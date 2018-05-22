@@ -159,7 +159,7 @@ public class MatchesFragment extends Fragment {
 //                    message = "No messages yet, say hello to " + otherName;
 //
                 userName.setText(otherName);
-//                recentMessage.setText(message);
+                recentMessage.setText("Click here to view your conversation with " + otherName);
 
 
             }
