@@ -14,6 +14,7 @@ public class User  {
     private String email;
     private boolean isMale;
     private String dateOfBirth;
+    private String description;
 
     ArrayList<String> likedUsers;
     //

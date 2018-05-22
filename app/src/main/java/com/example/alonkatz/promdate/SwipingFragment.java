@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,8 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-
+import com.google.firebase.storage.UploadTask;
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,7 +41,8 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
     String displayedUserName="";
     //displayedUserID should hold the userID of the user that is on the screen, not the logged in user.
     String displayedUserID="";
-
+    //StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("users").child(displayedUserID).child("Image");
+   // ImageView image = (ImageView)view.findViewById(R.id.userImage);
     public SwipingFragment() {
         // Required empty public constructor
     }
@@ -65,7 +70,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
                             allUsers.add(user);
                         Log.i("User", "" + userIdList.toString());
                     }
-
+showNextUser();
                    // User user = dataSnapshot.getValue(User.class);
 
                 }
@@ -91,16 +96,29 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
     }
 
     public void swipeRight() {
-       onMatch();
-        showNextUser();
-
+        if(index>=0) {
+            onMatch();
+            showNextUser();
+        }
+        else{
+            userName.setText("no more users to show");
+        }
     }
     public void swipeLeft(){
-
+if(index>=0)
     showNextUser();
+else {
+    userName.setText("no more users to show");
+}
     }
-    public void showNextUser()
-    {
+    public void showNextUser() {
+if(index<0||index==allUsers.size()){
+    userName.setText("no more users to show");
+    return;
+}
+        if (allUsers.get(index).equals(currentUserID)) {
+            index++;
+        }
         // Delete all users with null fields, build user DB up.
 
         FirebaseDatabase database2 = FirebaseDatabase.getInstance();
@@ -108,16 +126,18 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
         myRef5.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot==null)return;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                if (dataSnapshot == null) return;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     MatchedUser user = postSnapshot.getValue(MatchedUser.class);
-                    matchedUserIdList.add(user);
-                    Log.i("MatchedUser", "" + user.getUserID());
+                    if (!(matchedUserIdList.contains(user)))
+                        matchedUserIdList.add(user);
+
                 }
 
                 // User user = dataSnapshot.getValue(User.class);
 
             }
+
             //
 //                @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -125,26 +145,42 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
             }
         });
         userName = (TextView) view.findViewById(R.id.userName);
-
-        displayedUserName=allUsers.get(index).getFirstName()+allUsers.get(index).getLastName();
+/*
+  displayedUserName=allUsers.get(index).getFirstName()+allUsers.get(index).getLastName();
         displayedUserID=allUsers.get(index).getId();
         userName.setText(displayedUserName);
+*/
+
 
         //Make sure we don't show matched user
-        User currUser = allUsers.get(index);
-        for(MatchedUser x : matchedUserIdList){
-            if(x.getUserID().equals(currUser.getId())){
-                if(index < allUsers.size() - 1){
-                    index++;
-                } else {
-                    index = 0;
+        if(index!=-1) {
+            User currUser = allUsers.get(index);
+            for (MatchedUser x : matchedUserIdList) {
+                if (x.getUserID().equals(currUser.getId())) {
+                    if (index < allUsers.size() - 1) {
+
+                        index++;
+                    } else {
+                        //make sure to check if there are no more users"
+                        index = -1;
+                        userName.setText("no moe users to show :(");
+
+
+                    }
+                    Log.i("MatchedUser", "USERS ARE MATCHING" + currUser.getId());
+
                 }
-                Log.i("MatchedUser", "USERS ARE MATCHING" + currUser.getId());
-                break;
             }
         }
-        if(index<allUsers.size()-1)
-        index++;
+        if (index >= 0) {
+            displayedUserName = allUsers.get(index).getFirstName() + allUsers.get(index).getLastName();
+            displayedUserID = allUsers.get(index).getId();
+            userName.setText(displayedUserName);
+            index++;
+        } else {
+            userName.setText("no more users to show");
+        }
+
     }
     @Override
     public void onClick(View v) {
@@ -160,4 +196,10 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
                     break;
         }
     }
+/*
+public void setImage(){
+    storageReference = FirebaseStorage.getInstance().getReference().child("users").child(displayedUserID).child("Image");
+        Glide.with(this).using(new FirebaseImageLoader()).load(storageReference).into(image );
+    }
+    */
 }
