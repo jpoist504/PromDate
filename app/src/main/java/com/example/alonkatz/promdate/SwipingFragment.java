@@ -39,6 +39,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
     DatabaseReference myRef;
     ArrayList<User> allUsers = new ArrayList<User>();
     ArrayList<MatchedUser> matchedUserIdList = new ArrayList<MatchedUser>();
+    ArrayList<String> previousUsers = new ArrayList<String>();
     TextView userName;
     TextView description;
     private String currentUserName;
@@ -69,7 +70,8 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         currentUserID = currentUser.getUid();
 
-
+        allUsers = new ArrayList<User>();
+        matchedUserIdList = new ArrayList<MatchedUser>();
 
         userName = (TextView) view.findViewById(R.id.userName);
         description = (TextView) view.findViewById(R.id.description);
@@ -78,10 +80,10 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
         myRef5.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("UserShit", dataSnapshot.toString());
+               // Log.i("UserShit", dataSnapshot.toString());
                 if (dataSnapshot == null) return;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
+                    Log.i("UserShit", postSnapshot.getKey().toString());
                     MatchedUser user = (MatchedUser) postSnapshot.getValue(MatchedUser.class);
                     matchedUserIdList.add(user);
 
@@ -114,7 +116,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
                     if (!user.getId().equals(currentUser.getUid())) {
                         boolean hasInList = false;
                         for (int i = 0; i < matchedUserIdList.size(); i++) {
-                            if (matchedUserIdList.get(i).getUserID().equals(user.getId())) {
+                            if (matchedUserIdList.get(i).equals(user.getId())) {
                                 hasInList = true;
                                 break;
                             }
@@ -131,6 +133,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
                 Log.i("More Shit", allUsers.toString());
                 // User user = dataSnapshot.getValue(User.class);
                 showNextUser();
+                index--;
             }
 
             //
@@ -160,7 +163,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
     }
 
     public void registerSwipeRight() {
-        Log.i("Called", "Check");
+        Log.i("Called", "" + index);
         if(index < allUsers.size())
             FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("swipe_right").child(allUsers.get(index).getId()).setValue(new MatchedUser(allUsers.get(index).getFirstName(), allUsers.get(index).getId()));
         checkForMatch();

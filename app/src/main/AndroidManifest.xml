@@ -47,7 +47,8 @@
             android:name=".MessageTableViewActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".RegisterValues1"></activity>
+        <activity android:name=".RegisterValues1" />
+        <activity android:name=".ChangeSettings"></activity>
     </application>
 
 </manifest>

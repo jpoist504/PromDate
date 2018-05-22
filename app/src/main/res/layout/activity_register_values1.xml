@@ -45,12 +45,13 @@
             android:id="@+id/backButtonRegister1"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_alignParentStart="true"
             android:layout_above="@id/backgroundRegister1"
-            android:layout_marginStart="31dp"
+            android:layout_alignParentStart="true"
             android:layout_marginBottom="-60dp"
+            android:layout_marginStart="31dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:onClick="goBack"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/white_button" />
 

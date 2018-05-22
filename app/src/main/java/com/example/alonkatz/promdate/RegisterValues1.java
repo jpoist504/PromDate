@@ -73,6 +73,10 @@ public class RegisterValues1 extends AppCompatActivity {
         }
     }
 
+    public void goBack(View view){
+        finish();
+    }
+
     public void registerUserValues(String location, String description){
 
 
