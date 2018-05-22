@@ -2,6 +2,7 @@ package com.example.alonkatz.promdate;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,11 +25,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import com.google.firebase.storage.UploadTask;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SwipingFragment extends Fragment implements View.OnClickListener {
-    int index=0;
+    int index = 0;
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     String currentUserID = currentUser.getUid();
     DatabaseReference myRef;
@@ -39,11 +41,12 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
     private String currentUserName;
     List<String> userIdList = new ArrayList();
     //displayedUserName should hold the name of the user that is on the screen, not the logged in user.
-    String displayedUserName="";
+    String displayedUserName = "";
     //displayedUserID should hold the userID of the user that is on the screen, not the logged in user.
-    String displayedUserID="";
+    String displayedUserID = "";
+
     //StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("users").child(displayedUserID).child("Image");
-   // ImageView image = (ImageView)view.findViewById(R.id.userImage);
+    // ImageView image = (ImageView)view.findViewById(R.id.userImage);
     public SwipingFragment() {
         // Required empty public constructor
     }
@@ -61,8 +64,8 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
 
         userName = (TextView) view.findViewById(R.id.userName);
         description = (TextView) view.findViewById(R.id.description);
-        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-        DatabaseReference myRef5 = database2.getReference().child("users").child(currentUserID).child("swipe_right");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef5 = database.getReference().child("users").child(currentUserID).child("swipe_right");
         myRef5.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,54 +88,43 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference().child("users");
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot==null)return;
-                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                        userIdList.add(postSnapshot.getKey());
-                            User user = postSnapshot.getValue(User.class);
-                            if(!user.getId().equals(currentUser.getUid())){
-                                boolean hasInList = false;
-                                for (int i = 0; i < matchedUserIdList.size(); i++){
-                                    if(matchedUserIdList.get(i).getUserID().equals(user.getId())){
-                                        hasInList = true;
-                                        break;
-                                    }
-                                }
-                                if(!hasInList) {
-                                    allUsers.add(user);
-                                }
-                            }
 
-                            else {
-                                currentUserName = user.getFirstName() + " " + user.getLastName();
+        DatabaseReference myRefAddUsers = database.getReference().child("users");
+        myRefAddUsers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot == null) return;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    userIdList.add(postSnapshot.getKey());
+                    User user = postSnapshot.getValue(User.class);
+                    if (!user.getId().equals(currentUser.getUid())) {
+                        boolean hasInList = false;
+                        for (int i = 0; i < matchedUserIdList.size(); i++) {
+                            if (matchedUserIdList.get(i).getUserID().equals(user.getId())) {
+                                hasInList = true;
+                                break;
                             }
-                        Log.i("User", "" + userIdList.toString());
+                        }
+                        if (!hasInList) {
+                            allUsers.add(user);
+                        }
+                    } else {
+                        currentUserName = user.getFirstName() + " " + user.getLastName();
                     }
+                    Log.i("User", "" + userIdList.toString());
+                }
                 showNextUser();
-                   // User user = dataSnapshot.getValue(User.class);
+                // User user = dataSnapshot.getValue(User.class);
 
-                }
-//
+            }
+
+            //
 //                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+            }
+        });
 
-
-
-
-
-
-
-
-//displayedUserID=allUsers.get(0).getId();
-//displayedUserName=allUsers.get(0).getFirstName()+allUsers.get(0).getLastName();
-        //showNextUser();
         return view;
     }
 
@@ -142,18 +134,24 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
 
         myRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("matched_users");
         MatchedUser match = new MatchedUser(displayedUserName, displayedUserID);
-        myRef.push().setValue(match);
+        myRef.child(displayedUserID).setValue(match);
+
+        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(displayedUserID).child("matched_users");
+        MatchedUser match2 = new MatchedUser(currentUserName, currentUserID);
+        myRef.child(currentUserID).setValue(match2);
         showNextUser();
     }
 
-    public void checkIfMatched(){
+    public void checkIfMatched() {
         final DatabaseReference swipeRef = FirebaseDatabase.getInstance().getReference().child("users").child(displayedUserID).child("swipe_right").child(currentUserID);
 
         swipeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //might have an error
                 MatchedUser user = (MatchedUser) dataSnapshot.getValue();
-                if(user == null){
+                if (user == null) {
+                    Log.i("NO USER FOUND", "NO USER");
                     FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("swipe_right").child(displayedUserID).setValue(new MatchedUser(displayedUserName, displayedUserID));
                     showNextUser();
                 } else {
@@ -164,6 +162,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
                 // User user = dataSnapshot.getValue(User.class);
 
             }
+
             //
 //                @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -174,43 +173,27 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
     }
 
     public void swipeRight() {
-        if(index>=0) {
-            checkIfMatched();
-            matchedUserIdList.add(new MatchedUser(displayedUserName, displayedUserID));
+        checkIfMatched();
+        //  matchedUserIdList.add(new MatchedUser(displayedUserName, displayedUserID));
+    }
 
-        }
-        else{
-            userName.setText("no more users to show");
-        }
+    public void swipeLeft() {
+        showNextUser();
     }
-    public void swipeLeft(){
-        if(index>=0)
-            showNextUser();
-        else {
-            userName.setText("no more users to show");
-        }
-    }
+
     public void showNextUser() {
-        if(index<0||index==allUsers.size()){
-            userName.setText("no more users to show");
+        if (index < 0 || index >= allUsers.size()) {
+            userName.setText("No more users");
+            description.setText(" ");
             return;
         }
 
-
-
-
-/*
-  displayedUserName=allUsers.get(index).getFirstName()+allUsers.get(index).getLastName();
-        displayedUserID=allUsers.get(index).getId();
-        userName.setText(displayedUserName);
-*/
         User currUser = allUsers.get(index);
-        userName.setText(currUser.getFirstName());
+        userName.setText(currUser.getFirstName() + " " + currUser.getLastName());
         description.setText(currUser.getDescription());
-        displayedUserName = currUser.getFirstName()+" "+ currUser.getLastName();
-        displayedUserID = allUsers.get(index).getId();
+        displayedUserName = currUser.getFirstName() + " " + currUser.getLastName();
+        displayedUserID = currUser.getId();
         index++;
-
 
 
         //Make sure we don't show matched user
@@ -243,9 +226,10 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
 //        }
 
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.swipeRight:
                 swipeRight();
                 break;
@@ -253,8 +237,8 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
                 swipeLeft();
                 break;
 
-                default:
-                    break;
+            default:
+                break;
         }
     }
 /*
