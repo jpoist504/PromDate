@@ -70,7 +70,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
                             allUsers.add(user);
                         Log.i("User", "" + userIdList.toString());
                     }
-showNextUser();
+                showNextUser();
                    // User user = dataSnapshot.getValue(User.class);
 
                 }
@@ -173,7 +173,7 @@ if(index<0||index==allUsers.size()){
             }
         }
         if (index >= 0) {
-            displayedUserName = allUsers.get(index).getFirstName() + allUsers.get(index).getLastName();
+            displayedUserName = allUsers.get(index).getFirstName()+" "+ allUsers.get(index).getLastName();
             displayedUserID = allUsers.get(index).getId();
             userName.setText(displayedUserName);
             index++;
