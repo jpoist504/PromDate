@@ -75,7 +75,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
         description = (TextView) view.findViewById(R.id.description);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef5 = database.getReference().child("users").child(currentUserID).child("swipe_right");
-        myRef5.addValueEventListener(new ValueEventListener() {
+        myRef5.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i("UserShit", dataSnapshot.toString());
@@ -99,8 +99,10 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
         });
 
 
+        int counter;
+
         DatabaseReference myRefAddUsers = database.getReference().child("users");
-        myRefAddUsers.addValueEventListener(new ValueEventListener() {
+        myRefAddUsers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot == null) return;
@@ -128,7 +130,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
                 }
                 Log.i("More Shit", allUsers.toString());
                 // User user = dataSnapshot.getValue(User.class);
-
+                showNextUser();
             }
 
             //
@@ -166,7 +168,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
 
     public void checkForMatch(){
         DatabaseReference checkReference = FirebaseDatabase.getInstance().getReference().child("users").child(allUsers.get(index).getId()).child("swipe_right").child(currentUserID);
-        checkReference.addValueEventListener(new ValueEventListener() {
+        checkReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue() != null){
@@ -190,24 +192,43 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
 
     public void swipeRight() {
         Log.i("Called", "Swipe Right");
-        registerSwipeRight();
+        if(index >= allUsers.size()){
+            userName.setText("No more users");
+            description.setText("Refresh the Page to maybe find more users");
+        } else {
+            registerSwipeRight();
+        }
+
 
         //  matchedUserIdList.add(new MatchedUser(displayedUserName, displayedUserID));
     }
 
     public void swipeLeft() {
         Log.i("Called", "Swipe Left");
+        if(index >= allUsers.size()){
+            userName.setText("No more users");
+            description.setText("Refresh the Page to maybe find more users");
+        } else {
+           showNextUser();
+        }
+
     }
 
     public void showNextUser() {
         Log.i("Called", "Show Next");
-        index++;
-        userName.setText(allUsers.get(index).getFirstName());
-        description.setText(allUsers.get(index).getDescription());
 
-        Log.i("Niggas in paris", allUsers.toString());
-        Log.i("Niggas in paris", ""+ index + " " + allUsers.size());
+        if(index >= allUsers.size()){
+            userName.setText("No more users");
+            description.setText("Refresh the Page to maybe find more users");
+        } else {
 
+            userName.setText(allUsers.get(index).getFirstName());
+            description.setText(allUsers.get(index).getDescription());
+            index++;
+
+            Log.i("Niggas in paris", allUsers.toString());
+            Log.i("Niggas in paris", "" + index + " " + allUsers.size());
+        }
 //        if (index < 0 || index >= allUsers.size()) {
 //            userName.setText("No more users");
 //            description.setText(" ");
