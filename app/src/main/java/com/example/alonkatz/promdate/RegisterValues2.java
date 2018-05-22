@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -44,6 +45,8 @@ public class RegisterValues2 extends AppCompatActivity {
     private String birthday;
     private String location;
     private String description;
+
+    SVProgressHUD loadingGraphic;
 
     private TextView mDisplayDate;
     private int age;
@@ -67,6 +70,8 @@ public class RegisterValues2 extends AppCompatActivity {
 
         EditText targetEditText = (EditText) findViewById(R.id.lastName);
         targetEditText.setOnEditorActionListener(new DoneOnEditorActionListener());
+
+        loadingGraphic = new SVProgressHUD(this);
 
         setToggleListeners();
         setUpDatePicker();
@@ -139,12 +144,12 @@ public class RegisterValues2 extends AppCompatActivity {
         if (firstName.equals("") || lastName.equals("") || birthday.equals("") || !genderSelected || !ageSelected) {
             Toast.makeText(this, "Please fill all the boxes", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Here", Toast.LENGTH_SHORT).show();
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-
+                            loadingGraphic.show();
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("Email Creation", "createUserWithEmail:success");
@@ -153,6 +158,7 @@ public class RegisterValues2 extends AppCompatActivity {
 
 
                             } else {
+                                loadingGraphic.dismiss();
                                 //loadingGraphic.dismiss();
                                 // If sign in fails, display a message to the user.
                                 Log.w("Email Creation", "createUserWithEmail:failure", task.getException());
@@ -207,6 +213,7 @@ public class RegisterValues2 extends AppCompatActivity {
 //            }
 //        });
 
+        loadingGraphic.dismiss();
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
