@@ -133,37 +133,37 @@ public class MatchesFragment extends Fragment {
                         }
 
                         //Grab the most recent message from the database
-                        messageRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("messages").child("fromID").child(model.getUserID());
+//                messageRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("messages").child("fromID").child(model.getUserID());
+//
+//
+//                messageRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                            allMessages.add(data.getValue(Message.class).getMessageText());
+//                        }
+//                        if (allMessages.size() > 0) {
+//                            message = allMessages.get(allMessages.size() - 1);
+//                            recentMessage.setText(message);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//
+//                if (message == "" || message == null)
+//                    message = "No messages yet, say hello to " + otherName;
+//
+                userName.setText(otherName);
+//                recentMessage.setText(message);
 
 
-                        messageRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                                    allMessages.add(data.getValue(Message.class).getMessageText());
-                                }
-                                if (allMessages.size() > 0) {
-                                    message = allMessages.get(allMessages.size() - 1);
-                                    recentMessage.setText(message);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-
-                        if (message == "" || message == null)
-                            message = "No messages yet, say hello to " + otherName;
-
-                        userName.setText(otherName);
-                        recentMessage.setText(message);
-
-
-                    }
-                };
+            }
+    };
 
                 tableOfMessages.setAdapter(adapter);
 
