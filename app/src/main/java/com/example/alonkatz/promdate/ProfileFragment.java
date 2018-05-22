@@ -14,7 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * @author Alon
+ * Represents the view fragment that allows th user to change the details of their profile
  */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 

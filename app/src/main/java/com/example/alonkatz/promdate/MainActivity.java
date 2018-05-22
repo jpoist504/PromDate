@@ -13,6 +13,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
+/**
+ * @author Alon
+ * Represents the main view that you see when you log into the app which contains the three different tab views
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mMainNav;

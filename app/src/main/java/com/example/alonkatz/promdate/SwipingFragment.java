@@ -27,7 +27,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 /**
- * A simple {@link Fragment} subclass.
+ * @author Ben
+ * Represents the view in which you either "like" or "dislike" a presented user
  */
 public class SwipingFragment extends Fragment implements View.OnClickListener {
 

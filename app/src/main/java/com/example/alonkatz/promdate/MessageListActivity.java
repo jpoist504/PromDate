@@ -24,7 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
-
+/**
+ * @author Justin
+ * Represents the view that displays the conversation a user has with another user
+ */
 public class MessageListActivity extends AppCompatActivity{
 
 

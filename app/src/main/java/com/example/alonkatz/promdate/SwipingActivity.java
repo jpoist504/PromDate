@@ -16,6 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+/**
+ * @author Ben
+ * Represnets the actiivty that presents users with other prospective dates and allows them to either "like" or "dislike" the user
+ */
 public class SwipingActivity extends AppCompatActivity {
     TextView textElement;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
