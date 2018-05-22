@@ -65,34 +65,36 @@ public class LoginPage extends AppCompatActivity {
         loadingGraphic = new SVProgressHUD(this);
 
         if(mAuth.getCurrentUser()!= null){
-//            final List<String> userIdList = new ArrayList();
-//            FirebaseDatabase database = FirebaseDatabase.getInstance();
-//            DatabaseReference myRef = database.getReference().child("users");
-//            myRef.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    if(dataSnapshot==null)return;
-////                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-////                        userIdList.add(postSnapshot.getKey());
-//                            User user = postSnapshot.getValue(User.class);
+            final List<String> userIdList = new ArrayList();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference().child("users");
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot==null)return;
+                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        postSnapshot.getKey().toString();
+                        userIdList.add(postSnapshot.getKey());
+                    }
 
-////                    }
-//
-//                   // User user = dataSnapshot.getValue(User.class);
-//                    Log.i("User", "" + userIdList.toString());
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
+                   // User user = dataSnapshot.getValue(User.class);
+                    Log.i("User", "" + userIdList.toString());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
 
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
 
         ferrari = (BlurImageView) findViewById(R.id.background);
         ferrari.setBlur(2);
+
+
+
 
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
 
