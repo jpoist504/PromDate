@@ -51,6 +51,10 @@ public class User  {
 
     }
 
+    public String toString(){
+        return id;
+    }
+
     public String getId(){return id;}
     public String getFirstName(){return firstName;}
     public String getLastName(){return lastName;}
