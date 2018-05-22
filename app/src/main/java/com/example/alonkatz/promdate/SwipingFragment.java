@@ -55,7 +55,7 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_swiping, container, false);
         ImageButton b = (ImageButton) view.findViewById(R.id.swipeRight);
         b.setOnClickListener(this);
-        ImageButton c = (ImageButton) view.findViewById(R.id.swipeLeft);
+        ImageButton c = (ImageButton) view.findViewById(R.id.nopeButton);
         c.setOnClickListener(this);
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -188,7 +188,7 @@ if(index<0||index==allUsers.size()){
             case R.id.swipeRight:
                 swipeRight();
                 break;
-            case R.id.swipeLeft:
+            case R.id.nopeButton:
                 swipeLeft();
                 break;
 

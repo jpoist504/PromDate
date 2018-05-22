@@ -15,6 +15,8 @@ public class User  {
     private boolean isMale;
     private String dateOfBirth;
     private String description;
+    private String location;
+    private int age;
 
     ArrayList<String> likedUsers;
     //
@@ -25,13 +27,18 @@ public class User  {
     }
 
     //Reflects what a user looks like stored in firebase
-    public User(String id, String firstName, String lastName, String email, boolean isMale, String dateOfBirth){
+    public User(String id, String firstName, String lastName, String email, boolean isMale, String dateOfBirth, String description, String location, int age){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.isMale = isMale;
         this.dateOfBirth = dateOfBirth;
+        this.description = description;
+        this.location = location;
+        this.age = age;
+
+
     }
 
 
@@ -48,6 +55,9 @@ public class User  {
     public String getFirstName(){return firstName;}
     public String getLastName(){return lastName;}
     public String getEmail(){return email;}
+    public String getDescription(){return description;}
+    public String getLocation(){return location;}
+    public int getAge(){return age;}
 
     /**
      *

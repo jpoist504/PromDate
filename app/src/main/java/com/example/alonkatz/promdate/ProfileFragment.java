@@ -20,9 +20,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
 
+    private Button description;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
+
+
 
 
     @Override
@@ -31,6 +35,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         mAuth = FirebaseAuth.getInstance();
+        description = (Button) v.findViewById(R.id.nameButton);
+        description.setText("Description:");
         Button b = (Button) v.findViewById(R.id.signOut);
         b.setOnClickListener(this);
         return v;

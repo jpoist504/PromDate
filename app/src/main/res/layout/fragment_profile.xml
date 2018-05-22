@@ -1,24 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background5"
     tools:context=".ProfileFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/whiteColor">
+
+        <ImageView
+            android:id="@+id/logoImageView2"
+            android:layout_width="291dp"
+            android:layout_height="112dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+
+            android:contentDescription="@string/app_name"
+            android:cropToPadding="true"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/app_logo_text" />
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="241dp"
+            android:layout_height="230dp"
+            android:layout_below="@+id/logoImageView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/default_user" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="367dp"
+            android:layout_below="@+id/profileImageView"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Name"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/nameButton"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/nameTextView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/settings_button"
+            android:paddingLeft="20dp"
+            android:text="Name: "
+            android:textAlignment="viewStart"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="34dp"
+            android:layout_height="36dp"
+            android:layout_alignTop="@id/nameButton"
+            android:layout_marginTop="21dp"
+            android:layout_alignEnd="@id/nameButton"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="339dp"
+
+            android:src="@drawable/right_arrow_icon" />
+
+        <Button
+            android:id="@+id/locationButton"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_height="78dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/nameButton"
+            android:background="@drawable/settings_button"
+            android:paddingLeft="20dp"
+            android:text="Location: "
+            android:textAlignment="viewStart"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="34dp"
+            android:layout_height="36dp"
+            android:layout_alignTop="@id/locationButton"
+            android:layout_marginTop="21dp"
+            android:layout_alignEnd="@id/nameButton"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="339dp"
+
+            android:src="@drawable/right_arrow_icon" />
+
+        <Button
+            android:id="@+id/genderButton"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/locationButton"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/settings_button"
+            android:paddingLeft="20dp"
+            android:textSize="20sp"
+            android:text="Gender:"
+            android:textAlignment="viewStart" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="34dp"
+            android:layout_height="36dp"
+            android:layout_alignTop="@id/genderButton"
+            android:layout_marginTop="21dp"
+            android:layout_alignEnd="@id/nameButton"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="339dp"
+
+            android:src="@drawable/right_arrow_icon" />
+
 
         <Button
             android:id="@+id/signOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="32dp"
-            android:text="SignOut" />
-    </RelativeLayout>
+            android:layout_below="@id/genderButton"
+            android:layout_marginTop="85dp"
+            android:background="#18000000"
+            android:text="SignOut"
+            android:textColor="@android:color/holo_red_light"
+            android:paddingLeft="20dp"
+            android:textSize="18sp" />
 
-</FrameLayout>
+
+</RelativeLayout>
