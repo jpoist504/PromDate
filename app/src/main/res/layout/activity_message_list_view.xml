@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/send_button"
@@ -14,7 +14,9 @@
         android:clickable="true"
         android:src="@drawable/ic_send"
         android:tint="@android:color/white"
+        android:layout_margin="10dp"
         android:onClick="sendButtonPressed"
+        app:fabSize="mini"
         />
 
     <EditText
@@ -68,7 +70,10 @@
         android:onClick="backButtonPressed"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-
+        app:fabSize="mini"
+        android:layout_margin="10dp"
+        android:src="@drawable/back_icon"
+        android:tint="@android:color/white"
         />
 
 </RelativeLayout>
