@@ -38,6 +38,7 @@ public class MatchesFragment extends Fragment {
     private String message;
     private ArrayList<String> allMessages = new ArrayList<String>();
     private boolean hasMatches = false;
+    //private static final String NO_MESSAGES = "NO_MESSAGES";
 
     public MatchesFragment() {
         // Required empty public constructor
@@ -140,13 +141,11 @@ public class MatchesFragment extends Fragment {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                                     allMessages.add(data.getValue(Message.class).getMessageText());
-                                    for (int i = 0; i < allMessages.size(); i++)
-                                    System.out.println("PLACE_ " + i + allMessages.get(i));
                                 }
-                                if (allMessages.size() != 0)
+                                if (allMessages.size() > 0) {
                                     message = allMessages.get(allMessages.size() - 1);
-                                else
-                                    message = "No messages yet, say hello to ";
+                                    recentMessage.setText(message);
+                                }
                             }
 
                             @Override
@@ -156,14 +155,12 @@ public class MatchesFragment extends Fragment {
                         });
 
 
-                        if (message == "No messages yet, say hello to ")
-                            message += otherName;
+                        if (message == "" || message == null)
+                            message = "No messages yet, say hello to " + otherName;
 
                         userName.setText(otherName);
                         recentMessage.setText(message);
 
-                        System.out.println(userName);
-                        System.out.println("this is the message " + message);
 
                     }
                 };
@@ -175,7 +172,6 @@ public class MatchesFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(getActivity(), MessageListActivity.class);
-                        System.out.println(tableOfMessages.getItemAtPosition(position).toString());
                         MatchedUser otherUser = (MatchedUser) (tableOfMessages.getItemAtPosition(position));
                         intent.putExtra("UserName", otherUser.getName());
                         intent.putExtra("UserID", otherUser.getUserID());
