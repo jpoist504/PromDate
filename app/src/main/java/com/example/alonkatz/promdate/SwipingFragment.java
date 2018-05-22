@@ -35,7 +35,8 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
     ArrayList<User> allUsers = new ArrayList<User>();
     ArrayList<MatchedUser> matchedUserIdList = new ArrayList<MatchedUser>();
     TextView userName;
-    View view;
+    TextView description;
+    private String currentUserName;
     List<String> userIdList = new ArrayList();
     //displayedUserName should hold the name of the user that is on the screen, not the logged in user.
     String displayedUserName="";
@@ -52,85 +53,24 @@ public class SwipingFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_swiping, container, false);
+        View view = inflater.inflate(R.layout.fragment_swiping, container, false);
         ImageButton b = (ImageButton) view.findViewById(R.id.swipeRight);
         b.setOnClickListener(this);
         ImageButton c = (ImageButton) view.findViewById(R.id.nopeButton);
         c.setOnClickListener(this);
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference().child("users");
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot==null)return;
-                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                        userIdList.add(postSnapshot.getKey());
-                            User user = postSnapshot.getValue(User.class);
-                            allUsers.add(user);
-                        Log.i("User", "" + userIdList.toString());
-                    }
-                showNextUser();
-                   // User user = dataSnapshot.getValue(User.class);
-
-                }
-//
-//                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-//displayedUserID=allUsers.get(0).getId();
-//displayedUserName=allUsers.get(0).getFirstName()+allUsers.get(0).getLastName();
-        //showNextUser();
-        return view;
-    }
-
-
-    //This is how you put a matchedUser into the database
-    public void onMatch() {
-
-        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("matched_users");
-        MatchedUser match = new MatchedUser(displayedUserName, displayedUserID);
-        myRef.push().setValue(match);
-    }
-
-    public void swipeRight() {
-        if(index>=0) {
-            onMatch();
-            showNextUser();
-        }
-        else{
-            userName.setText("no more users to show");
-        }
-    }
-    public void swipeLeft(){
-if(index>=0)
-    showNextUser();
-else {
-    userName.setText("no more users to show");
-}
-    }
-    public void showNextUser() {
-if(index<0||index==allUsers.size()){
-    userName.setText("no more users to show");
-    return;
-}
-        if (allUsers.get(index).equals(currentUserID)) {
-            index++;
-        }
-        // Delete all users with null fields, build user DB up.
-
+        userName = (TextView) view.findViewById(R.id.userName);
+        description = (TextView) view.findViewById(R.id.description);
         FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-        DatabaseReference myRef5 = database2.getReference().child("users").child(currentUserID).child("matched_users");
+        DatabaseReference myRef5 = database2.getReference().child("users").child(currentUserID).child("swipe_right");
         myRef5.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("UserShit", dataSnapshot.toString());
                 if (dataSnapshot == null) return;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     MatchedUser user = postSnapshot.getValue(MatchedUser.class);
-                    if (!(matchedUserIdList.contains(user)))
-                        matchedUserIdList.add(user);
+                    matchedUserIdList.add(user);
 
                 }
 
@@ -144,42 +84,163 @@ if(index<0||index==allUsers.size()){
 
             }
         });
-        userName = (TextView) view.findViewById(R.id.userName);
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference().child("users");
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot==null)return;
+                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        userIdList.add(postSnapshot.getKey());
+                            User user = postSnapshot.getValue(User.class);
+                            if(!user.getId().equals(currentUser.getUid())){
+                                boolean hasInList = false;
+                                for (int i = 0; i < matchedUserIdList.size(); i++){
+                                    if(matchedUserIdList.get(i).getUserID().equals(user.getId())){
+                                        hasInList = true;
+                                        break;
+                                    }
+                                }
+                                if(!hasInList) {
+                                    allUsers.add(user);
+                                }
+                            }
+
+                            else {
+                                currentUserName = user.getFirstName() + " " + user.getLastName();
+                            }
+                        Log.i("User", "" + userIdList.toString());
+                    }
+                showNextUser();
+                   // User user = dataSnapshot.getValue(User.class);
+
+                }
+//
+//                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+
+
+
+
+
+
+//displayedUserID=allUsers.get(0).getId();
+//displayedUserName=allUsers.get(0).getFirstName()+allUsers.get(0).getLastName();
+        //showNextUser();
+        return view;
+    }
+
+
+    //This is how you put a matchedUser into the database
+    public void onMatch() {
+
+        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("matched_users");
+        MatchedUser match = new MatchedUser(displayedUserName, displayedUserID);
+        myRef.push().setValue(match);
+        showNextUser();
+    }
+
+    public void checkIfMatched(){
+        final DatabaseReference swipeRef = FirebaseDatabase.getInstance().getReference().child("users").child(displayedUserID).child("swipe_right").child(currentUserID);
+
+        swipeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                MatchedUser user = (MatchedUser) dataSnapshot.getValue();
+                if(user == null){
+                    FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("swipe_right").child(displayedUserID).setValue(new MatchedUser(displayedUserName, displayedUserID));
+                    showNextUser();
+                } else {
+                    FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("swipe_right").child(displayedUserID).setValue(new MatchedUser(displayedUserName, displayedUserID));
+                    onMatch();
+
+                }
+                // User user = dataSnapshot.getValue(User.class);
+
+            }
+            //
+//                @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void swipeRight() {
+        if(index>=0) {
+            checkIfMatched();
+            matchedUserIdList.add(new MatchedUser(displayedUserName, displayedUserID));
+
+        }
+        else{
+            userName.setText("no more users to show");
+        }
+    }
+    public void swipeLeft(){
+        if(index>=0)
+            showNextUser();
+        else {
+            userName.setText("no more users to show");
+        }
+    }
+    public void showNextUser() {
+        if(index<0||index==allUsers.size()){
+            userName.setText("no more users to show");
+            return;
+        }
+
+
+
+
 /*
   displayedUserName=allUsers.get(index).getFirstName()+allUsers.get(index).getLastName();
         displayedUserID=allUsers.get(index).getId();
         userName.setText(displayedUserName);
 */
+        User currUser = allUsers.get(index);
+        userName.setText(currUser.getFirstName());
+        description.setText(currUser.getDescription());
+        displayedUserName = currUser.getFirstName()+" "+ currUser.getLastName();
+        displayedUserID = allUsers.get(index).getId();
+        index++;
+
 
 
         //Make sure we don't show matched user
-        if(index!=-1) {
-            User currUser = allUsers.get(index);
-            for (MatchedUser x : matchedUserIdList) {
-                if (x.getUserID().equals(currUser.getId())) {
-                    if (index < allUsers.size() - 1) {
-
-                        index++;
-                    } else {
-                        //make sure to check if there are no more users"
-                        index = -1;
-                        userName.setText("no moe users to show :(");
-
-
-                    }
-                    Log.i("MatchedUser", "USERS ARE MATCHING" + currUser.getId());
-
-                }
-            }
-        }
-        if (index >= 0) {
-            displayedUserName = allUsers.get(index).getFirstName()+" "+ allUsers.get(index).getLastName();
-            displayedUserID = allUsers.get(index).getId();
-            userName.setText(displayedUserName);
-            index++;
-        } else {
-            userName.setText("no more users to show");
-        }
+//        if(index!=-1) {
+//            User currUser = allUsers.get(index);
+//            for (MatchedUser x : matchedUserIdList) {
+//                if (x.getUserID().equals(currUser.getId())) {
+//                    if (index < allUsers.size() - 1) {
+//
+//                        index++;
+//                    } else {
+//                        //make sure to check if there are no more users"
+//                        index = -1;
+//                        userName.setText("no moe users to show :(");
+//
+//
+//                    }
+//                    Log.i("MatchedUser", "USERS ARE MATCHING" + currUser.getId());
+//
+//                }
+//            }
+//        }
+//        if (index >= 0) {
+//            displayedUserName = allUsers.get(index).getFirstName()+" "+ allUsers.get(index).getLastName();
+//            displayedUserID = allUsers.get(index).getId();
+//            userName.setText(displayedUserName);
+//            index++;
+//        } else {
+//            userName.setText("no more users to show");
+//        }
 
     }
     @Override
