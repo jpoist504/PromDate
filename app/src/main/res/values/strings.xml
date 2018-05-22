@@ -14,4 +14,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="you_have_no_current_matches">You have no current matches :(</string>
     <string name="either_loading_or_you_have_no_matches">Either loading or you have no matches :(</string>
+    <string name="click_to_view_conversation">Click to view conversation</string>
 </resources>
