@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * @author Alon
+ * Represents the way that a user's data is stored when they register
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
